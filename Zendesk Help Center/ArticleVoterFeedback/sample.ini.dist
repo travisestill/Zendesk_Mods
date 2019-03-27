@@ -1,0 +1,3 @@
+[APICredentials]
+user = 'zendesk.agentEmail@domain.tld/token'
+apiKey = 'insertKeyHere'

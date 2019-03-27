@@ -1,0 +1,72 @@
+//bottom of page
+
+<script>
+$(document).ready(function() {
+
+//user ID buckets
+
+var partners = ["114951734794", "115182119314", "115925106114", "362165784813", "363998151514", "362169943014", "362169989634", "362165905613", "363998104534", "363982800553", "362759212434"];
+var supportAgents = ["114966515794", "115945091953", "115655898734", "15386235665", "9774058889", "4242973785", "3730887389", "8841211385", "5523711245", "5263688945", "363559372613", "363425294634", "364752666614", "365545595334", "364547557674", "364611873014"];
+
+//comment badges
+$('.comment-author').each(function(index) {
+    var commentAuthorUrl = $(this).find('.comment-meta span a').attr('href');
+    var commentStr = commentAuthorUrl.split("/")[4];
+    var commentID = commentStr.split("-")[0];
+    var metaSpan = $(this).find('.comment-meta span');
+
+    if ($.inArray(commentID, partners) !== -1) {
+        $(metaSpan).addClass('partner');
+        return;
+    } else if ($.inArray(commentID, supportAgents) !== -1) {
+        $(metaSpan).addClass('support-agent');
+        return;
+    } else {
+        console.log("No matches found");
+    }
+});
+
+//post badges
+$('.post-meta span').each(function(index) {
+
+    var postAuthorUrl = $('.post-author a').attr('href');
+    var postStr = postAuthorUrl.split("/")[4];
+    var postID = postStr.split("-")[0];
+
+    if ($.inArray(postID, partners) !== -1) {
+
+        $(this).addClass('partner');
+        return false;
+
+    } else if ($.inArray(postID, supportAgents) !== -1) {
+
+        $(this).addClass('support-agent');
+        return false;
+
+    } else {
+        console.log("No matches found");
+    }
+  });
+});
+
+</script>
+<style>
+.partner:after, .support-agent:after {
+
+content: "Partner";
+background-color: #2D2E83;
+border-radius: 3px;
+color: white;
+margin-left: 8px;
+padding: 2px 5px;
+font-size: 12px;
+
+}
+
+.support-agent:after {
+
+content: "Support";
+background-color: #2D2E83;
+
+}
+</style>

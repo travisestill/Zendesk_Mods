@@ -1,0 +1,94 @@
+<!-- article_page.hbs changes -->
+
+<script>
+//DOM Ready Function
+$( document ).ready(function() {
+  // Show/Hide correct form based on feedback selection
+  $('.article-votes-controls').on('click',function(){
+    setTimeout(function(){
+      if ($('.article-votes-controls > a[title|="No"]').attr('aria-selected')=='true') {
+        $('#negativeFeedback').show("blind", 500);
+      } else {
+        $('#negativeFeedback').hide("blind", 150);
+      }
+    },600);
+  });
+  $('.article-votes-controls').on('click',function(){
+    setTimeout(function(){
+      if ($('.article-votes-controls > a[title|="Yes"]').attr('aria-selected')=='true') {
+        $('#positiveFeedback').show("blind", 500);
+      } else {
+        $('#positiveFeedback').hide("blind", 150);
+      }
+    },600);
+  });
+
+  //get URL from page and add it to form
+  document.getElementById('ArticleIDNo').value = window.location.href;
+  document.getElementById('ArticleIDYes').value = window.location.href;
+
+  //alter onsubmit to prevent redirect to PHP page.
+    $('#negativeFeedback').submit( function () {
+    var formdata = $(this).serialize();
+    $.ajax({
+        type: "POST",
+        url: "https://panado.biz/formHandler.php",
+        data: formdata,
+        complete: function () {
+          $("#feedbackForm").hide();
+          $("#thanksFeedback").show("blind", 150);
+        }
+     });
+     return false;
+  });
+  $('#positiveFeedback').submit( function () {
+  var formdata = $(this).serialize();
+  $.ajax({
+      type: "POST",
+      url: "https://panado.biz/formHandler.php",
+      data: formdata,
+      complete: function () {
+        $("#feedbackForm").hide();
+        $("#thanksFeedback").show("blind", 150);
+      }
+   });
+   return false;
+  });
+});
+</script>
+
+<div id="feedbackForm" style="text-align: center">
+<style>
+.btn-primary, .btn-primary:hover, .btn-primary:active, .btn-primary:visited {
+  background-color: #2D2E83 !important;
+  border: 0px;
+}
+textarea:focus, input:focus, .uneditable-input:focus {
+  border-color: rgba(122,	56,	131, 0.8) !important;
+  outline: 0 none !important;
+}
+</style>
+<form id="negativeFeedback" style="width: 50%; margin:auto; display: none;">
+  <div class="form-group">
+    <input class="form-control" type="hidden" id="ArticleIDNo" name="ArticleIDNo" value="" readonly/>
+    <label>How can we improve this article?</label>
+    <br />
+    <br />
+    <textarea class="form-control" id="feedbackImprovement" name="feedbackImprovement"></textarea>
+  </div>
+  <button type="submit" name="formSubmit" class="btn btn-primary mb-2" value="SubmitBad">Submit</button>
+</form>
+<form id="positiveFeedback" style="width: 50%; margin:auto; display: none;">
+  <div class="form-group">
+    <input class="form-control" type="hidden" id="ArticleIDYes" name="ArticleIDYes" value="" readonly/>
+    <label>What did you like about this article?</label>
+    <br />
+    <br />
+    <textarea class="form-control" id="feedbackFavorite" name="feedbackFavorite" placeholder="Type your feedback here"></textarea>
+  </div>
+  <button type="submit" name="formSubmit" class="btn btn-primary mb-2" value="SubmitGood" >Submit</button>
+</form>
+</div>
+<div id="thanksFeedback" style="text-align: center; display: none;">
+<p>Thanks for your feedback!</p>
+</div>

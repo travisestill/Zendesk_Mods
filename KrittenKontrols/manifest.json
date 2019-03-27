@@ -1,0 +1,31 @@
+{
+  "manifest_version": 5,
+  "name": "Kritten Kontrols",
+  "version": "1.1",
+  "icons": {
+    "16": "images/kritten16.png",
+    "32": "images/kritten32.png",
+    "48": "images/kritten64.png",
+    "128": "images/kritten128.png"
+  },
+  "content_scripts": [
+    {
+      "run_at": "document_idle",
+      "matches": ["*/hc/admin/manage/pending/*"],
+      "css": ["moderation.css"],
+      "js": ["jquery-3.3.1.min.js", "moderation.js"]
+    },
+    {
+    "matches": ["*/agent/tickets/*"],
+    "css": ["tickets.css"],
+    "js": ["jquery-3.3.1.min.js", "tickets.js"]
+    }],
+
+    "background": {
+      "scripts": ["background.js"]
+    },
+
+  "permissions": [
+    "*/agent/tickets/*", "tabs", "webNavigation"
+   ]
+}

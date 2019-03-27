@@ -1,0 +1,8 @@
+{
+  "app": {
+    "name": "Account Notes",
+    "short_description": "See notes from the requester in ticket",
+    "long_description": "See notes from the requester Account Record in the current ticket.",
+    "installation_instructions": "Simply click install."
+  }
+}
